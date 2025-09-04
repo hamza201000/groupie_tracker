@@ -14,6 +14,20 @@ type data_artist struct {
 	dates     string `json:"dates"`
 	relation  string `json:"relation"`
 }
+type data_locations struct {
+	id       int      `json:"id"`
+	location []string `json:"location"`
+}
+
+type data_dates struct {
+	id    int      `json:"id"`
+	dates []string `json:"dates"`
+}
+type relation struct {
+	id             int                 `json:"id"`
+	datesLocations map[string][]string `json:"datesLocations"`
+}
+
 type data struct {
 	artists   string
 	locations string
@@ -22,7 +36,6 @@ type data struct {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-
 	if r.URL.Path != "/" {
 		RenderError(w, http.StatusNotFound)
 		return
