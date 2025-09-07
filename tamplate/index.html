@@ -3,16 +3,30 @@
 <head>
 
     <title>GroupieTracker</title>
-
+    <link rel="stylesheet" href="/static/style.css"/>
 </head>
 
 <body>
 
 <h1>GroupieTracker</h1>
-    <pre>{.artists}</pre>
-    <pre>{.locations}</pre>
-    <pre>{.dates}</pre>
-    <pre>{.relation}</pre>
-
+   <h1>Artists</h1>
+   <div class="container">
+    
+        {{range .}}
+                <a href="/{{.Id}}" class="box">
+                <div >
+                <img  src="{{.Image}}" alt="{{.Name}}" width="100"><br>
+                <strong>{{.Name}}</strong><br>
+                Members: {{range .Members}}{{.}}, {{end}}<br>
+                First Album: {{.FirstAlbum}}<br>
+                Created in: {{.CreationDate}}<br>
+               
+                
+                </div>
+            </a>
+            
+        {{end}}
+    
+</div>
 
 </body>

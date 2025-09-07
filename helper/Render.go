@@ -6,8 +6,8 @@ import (
 )
 
 type message_error struct {
-	statut  int
-	message string
+	Statut  int
+	Message string
 }
 
 func RenderError(w http.ResponseWriter, status int) {
@@ -16,7 +16,7 @@ func RenderError(w http.ResponseWriter, status int) {
 		http.Error(w, "page not found", http.StatusNotFound)
 		return
 	}
-	w.WriteHeader(status)
+	http.Error(w, http.StatusText(status), status)
 	ErrorText := ""
 	switch status {
 	case 405:
@@ -28,10 +28,11 @@ func RenderError(w http.ResponseWriter, status int) {
 	default:
 		ErrorText = "INTERNAL SERVER ERROR"
 	}
-	pas_msg := message_error{statut: status, message: ErrorText}
+	pas_msg := message_error{Statut: status, Message: ErrorText}
 	err = tmp.Execute(w, pas_msg)
 	if err != nil {
-		RenderError(w, http.StatusInternalServerError)
+
+		http.Error(w, "page not found", http.StatusInternalServerError)
 		return
 	}
 }
